@@ -23,6 +23,11 @@ public class SCurlParm {
     @Parameter(names = {"-H"}, hidden = true)
     private boolean header = false;
 
+    @Parameter(names = {"-d"}, hidden = true)
+    private boolean data = false;
+
+
+
     public boolean isScurl() {
         return scurl;
     }
@@ -62,6 +67,20 @@ public class SCurlParm {
             header = parameters.get(count);
             count++;
             return header;
+        }
+        return null;
+    }
+
+    public boolean isData() {
+        return data;
+    }
+
+    public String getData() {
+        String data = "";
+        if (isData()) {
+            data = parameters.get(count);
+            count++;
+            return data;
         }
         return null;
     }
