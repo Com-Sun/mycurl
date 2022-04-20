@@ -6,6 +6,8 @@ import java.util.List;
 
 public class SCurlParm {
     private String requestMethod = "GET";
+    private int count = 0;
+
 
     @Parameter(hidden = true)
     private List<String> parameters = new ArrayList<>();
@@ -16,6 +18,8 @@ public class SCurlParm {
     @Parameter(names = {"-v"}, hidden = true)
     private boolean verbose = false;
 
+    @Parameter(names = {"-X"}, hidden = true)
+    private boolean method = false;
 
     public boolean isScurl() {
         return scurl;
@@ -27,5 +31,22 @@ public class SCurlParm {
 
     public List<String> getParameters() {
         return parameters;
+    }
+
+    public boolean isMethod() {
+        return method;
+    }
+
+    public String getMethod() {
+        if (isMethod()) {
+            requestMethod = parameters.get(count);
+            count++;
+            return requestMethod;
+        }
+        return requestMethod;
+    }
+
+    public int getCount() {
+        return count;
     }
 }
