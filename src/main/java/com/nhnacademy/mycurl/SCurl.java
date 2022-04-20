@@ -26,20 +26,31 @@ public class SCurl {
         if (sCurlParm.isHeader()) {
             stringUrl = sCurlParm.getParameters().get(1);
         }
+        if (sCurlParm.isData()) {
+            stringUrl = sCurlParm.getParameters().get(sCurlParm.getCount() + 3);
+        }
 
         URL url = new URL(stringUrl);
 
         try {
             Socket socket = new Socket(url.getHost(), 80);
             InputStream in = socket.getInputStream();
-            String request = sCurlParm.getMethod() + " /get HTTP/1.1 \n"
+            String request = sCurlParm.getMethod() + getMethod2(sCurlParm.getMethod()) + "\n"
                 + "Host: " + url.getHost() + "\n"
                 +
                 "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36 \n"
-                + "Content-Type:  \"text/*"
+                + "Content-Type: application/json \n"
                 + "Accept: */* \n";
             if (sCurlParm.isHeader()) {
                 request += sCurlParm.getParameters().get(0) + "\n";
+            }
+            if (sCurlParm.isData()) {
+                int length = sCurlParm.getParameters().get(1).length();
+                System.out.println("length: " + length);
+                request += "Content-Length: " + length + "\n";
+                request += "\n" +
+                    sCurlParm.getParameters().get(1) + "\n"
+                + "\n";
             }
 
             PrintStream out = new PrintStream(socket.getOutputStream()); // 개행을 기준으로 한줄씩 던짐
@@ -60,5 +71,12 @@ public class SCurl {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static String getMethod2(String method) {
+        if (method.equals("GET")) {
+            return " /get HTTP/1.1 ";
+        }
+        return " /post HTTP/1.1 ";
     }
 }
