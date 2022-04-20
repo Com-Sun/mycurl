@@ -8,7 +8,6 @@ public class SCurlParm {
     private String requestMethod = "GET";
     private int count = 0;
 
-
     @Parameter(hidden = true)
     private List<String> parameters = new ArrayList<>();
 
@@ -20,6 +19,9 @@ public class SCurlParm {
 
     @Parameter(names = {"-X"}, hidden = true)
     private boolean method = false;
+
+    @Parameter(names = {"-H"}, hidden = true)
+    private boolean header = false;
 
     public boolean isScurl() {
         return scurl;
@@ -48,5 +50,19 @@ public class SCurlParm {
 
     public int getCount() {
         return count;
+    }
+
+    public boolean isHeader() {
+        return header;
+    }
+
+    public String getHeader() {
+        String header;
+        if (isHeader()) {
+            header = parameters.get(count);
+            count++;
+            return header;
+        }
+        return null;
     }
 }
