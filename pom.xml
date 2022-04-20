@@ -24,7 +24,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.nhnacademy.homework.Server</mainClass>
+                            <mainClass>com.nhnacademy.mycurl.SCurl</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
