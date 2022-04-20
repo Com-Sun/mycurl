@@ -1,10 +1,8 @@
 package com.nhnacademy.mycurl;
 
 import com.beust.jcommander.JCommander;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.net.Socket;
@@ -25,6 +23,9 @@ public class SCurl {
         if (sCurlParm.isMethod()) {
             stringUrl = sCurlParm.getParameters().get(1);
         }
+        if (sCurlParm.isHeader()) {
+            stringUrl = sCurlParm.getParameters().get(1);
+        }
 
         URL url = new URL(stringUrl);
 
@@ -37,6 +38,9 @@ public class SCurl {
                 "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36 \n"
                 + "Content-Type:  \"text/*"
                 + "Accept: */* \n";
+            if (sCurlParm.isHeader()) {
+                request += sCurlParm.getParameters().get(0) + "\n";
+            }
 
             PrintStream out = new PrintStream(socket.getOutputStream()); // 개행을 기준으로 한줄씩 던짐
             out.println(request);
