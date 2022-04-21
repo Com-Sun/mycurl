@@ -26,6 +26,11 @@ public class SCurlParm {
     @Parameter(names = {"-d"}, hidden = true)
     private boolean data = false;
 
+    @Parameter(names = {"-L"})
+    private boolean location = false;
+
+
+
 
 
     public boolean isScurl() {
@@ -83,5 +88,9 @@ public class SCurlParm {
             return data;
         }
         return null;
+    }
+
+    public boolean isLocation() {
+        return location;
     }
 }
